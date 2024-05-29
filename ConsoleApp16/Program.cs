@@ -30,6 +30,7 @@ while (true)
             SearchCarsAsPerKM();
             break;
         case 3:
+            SearchAsPerYearModel();
             break;
         case 4:
             Purchase();
@@ -50,17 +51,17 @@ void Purchase()
     bool isCorrect = false;
     Console.WriteLine("Enter car registration number to purchase it: ");
     string regNumber = Console.ReadLine();
-    
-    for(int i=0;i<cars.Count;i++)
+
+    for (int i = 0; i < cars.Count; i++)
     {
-        if ( cars[i].RegistrartionNumber == regNumber)
+        if (cars[i].RegistrartionNumber == regNumber)
         {
             isCorrect = true;
             Console.Write("Enter new owner name: ");
             string name = Console.ReadLine();
             cars[i].PurchasedBy = name;
             sold.Add(cars[i]);
-            
+
             cars.Remove(cars[i]);
         }
     }
@@ -76,6 +77,39 @@ void SoldCars()
     foreach (var car in sold)
     {
         car.ShowSoldInfo();
+    }
+}
+
+void SearchAsPerYearModel()
+{
+    List<Car> searchResult = new List<Car>();
+    bool isavailable = false;
+    Console.Write("Enter year to search from: ");
+    int yearFrom = Convert.ToInt32(Console.ReadLine());
+    Console.Write("Enter year to search upto: ");
+    int yearTo = Convert.ToInt32(Console.ReadLine());
+
+    foreach (var car in cars)
+    {
+        if (car.YearModel >= yearFrom && car.YearModel <= yearTo)
+        {
+            searchResult.Add(car);
+            isavailable = true;
+        }
+    }
+
+    if (!isavailable)
+    {
+        Console.Write($"no car is found for model year between {yearFrom}");
+        Console.WriteLine($"and {yearTo}");
+    }
+    
+    if (searchResult.Count != 0)
+    {
+        foreach (var car in searchResult)
+        {
+            car.ShowInfo();
+        }
     }
 }
 
@@ -97,9 +131,12 @@ void SearchCarsAsPerKM()
 
     if (searchResult.Count == 0)
     {
-        Console.WriteLine($"No car found whose Km is from {searchFrom} to {searchTo}");
+        Console.WriteLine(
+            $"No car found whose Km is from {searchFrom} to {searchTo}");
     }
-    if(searchResult.Count!=0){
+
+    if (searchResult.Count != 0)
+    {
         foreach (var car in searchResult)
         {
             car.ShowInfo();
@@ -118,6 +155,6 @@ void ShowAllCars()
 void Menu()
 {
     Console.WriteLine("\t*** MENU ***");
-    Console.WriteLine("press 1 to see all cars\npress 2 to search cars as per KM\npress 3 to search cars as per year model\npress 4 to purchase car\npress 5 for see all sold cars\npress 6 to exit");
+    Console.WriteLine(
+        "press 1 to see all cars\npress 2 to search cars as per KM\npress 3 to search cars as per year model\npress 4 to purchase car\npress 5 for see all sold cars\npress 6 to exit");
 }
-
