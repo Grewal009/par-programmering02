@@ -2,27 +2,33 @@ namespace ConsoleApp16;
 
 public class Car
 {
-    private string _brand;
-    private int _yearModel;
-    private string _registrartionNumber;
-    private int _km;
+    public string Brand { get; }
 
-    public string Brand { get; } = string.Empty;
     public int YearModel { get; }
-    public string RegistrartionNumber { get; } = string.Empty;
-    public int Km { get; } 
+
+    public string RegistrartionNumber { get; }
+
+    public int Km { get; }
+
+    public string PurchasedBy { get; set; } = string.Empty;
 
 
-    public Car(string brand, int yearModel, string registrartionNumber, int km)
+    public Car(string brand, int yearModel, string registrartionNumber, int 
+            km)
     {
-        _brand = brand;
-        _yearModel = yearModel;
-        _registrartionNumber = registrartionNumber;
-        _km = km;
+        Brand = brand;
+        YearModel = yearModel;
+        RegistrartionNumber = registrartionNumber;
+        Km = km;
     }
 
     public void ShowInfo()
     {
         Console.WriteLine($"Brand: {Brand}, Year Model: {YearModel}, Registration Number: {RegistrartionNumber}, Kilometer: {Km}");
+    }
+
+    public void ShowSoldInfo()
+    {
+        Console.WriteLine($"Brand: {Brand}, Year Model: {YearModel}, Registration Number: {RegistrartionNumber}, Kilometer: {Km}, Purchased by: {PurchasedBy}");
     }
 }
